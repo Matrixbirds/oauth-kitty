@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+if (!process.env.NODE_ENV) process.env.NODE_ENV='development'
+if (require.main === module) {
+    const repl = require('repl');
+    const app = require('../app');
+    const service = require('../user.service')
+    Object.assign(repl.start(':> ').context, {
+        app,
+        service
+    });
+}
+
+process.on("uncaughtException", function (err) {
+    console.error(err);
+});
+process.on("unhandledRejection", function (err) {
+    console.error(err);
+})
